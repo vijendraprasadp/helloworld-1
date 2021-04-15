@@ -9,11 +9,24 @@ pipeline {
     }
 
     stage('qa') {
-      steps {
-        echo 'Running QA Build and test'
-        echo 'running buils'
-        sleep(time: 5, unit: 'SECONDS')
-        echo 'performing QA testing'
+      parallel {
+        stage('qa') {
+          steps {
+            echo 'Running QA Build and test'
+            echo 'running buils'
+            sleep(time: 5, unit: 'SECONDS')
+            echo 'performing QA testing'
+          }
+        }
+
+        stage('qa test') {
+          steps {
+            echo 'qa int testing'
+            sleep 10
+            echo 'qa int testing complited'
+          }
+        }
+
       }
     }
 
